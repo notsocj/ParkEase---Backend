@@ -84,4 +84,9 @@ public class ParkingSlotController {
         ParkingSlot newSlot = parkingSlotService.saveParkingSlot(parkingSlot);
         return ResponseEntity.status(HttpStatus.CREATED).body(newSlot);
     }
+
+    @GetMapping("/owner/{ownerId}")
+    public ResponseEntity<List<ParkingSlot>> getParkingSlotsByOwner(@PathVariable Long ownerId) {
+    return ResponseEntity.ok(parkingSlotService.getParkingSlotsByOwnerId(ownerId));
+}
 }

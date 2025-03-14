@@ -51,4 +51,8 @@ public class ParkingSlotService {
         }
         return null;
     }
+
+    public List<ParkingSlot> getParkingSlotsByOwnerId(Long ownerId) {
+        return parkingSlotRepository.findByOwnerId(ownerId);
+}
 }

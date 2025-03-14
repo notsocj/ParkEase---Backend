@@ -19,4 +19,8 @@ public class ParkingSlot {
     
     @Column(nullable = false)
     private String status = "available"; // Default value: available
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private ParkingOwner owner;
 }

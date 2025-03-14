@@ -10,4 +10,5 @@ import java.util.List;
 public interface ParkingSlotRepository extends JpaRepository<ParkingSlot, Long> {
     List<ParkingSlot> findByStatus(String status);
     List<ParkingSlot> findByLocation(String location);
+    List<ParkingSlot> findByOwnerId(Long ownerId);
 }
