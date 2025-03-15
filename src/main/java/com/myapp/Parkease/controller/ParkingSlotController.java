@@ -30,10 +30,18 @@ public class ParkingSlotController {
         return ResponseEntity.ok(parkingSlotService.getAvailableParkingSlots());
     }
     
-    @GetMapping("/location/{location}")
-    public ResponseEntity<List<ParkingSlot>> getParkingSlotsByLocation(@PathVariable String location) {
-        return ResponseEntity.ok(parkingSlotService.getParkingSlotsByLocation(location));
+    // Replace this endpoint
+    // @GetMapping("/location/{location}")
+    // public ResponseEntity<List<ParkingSlot>> getParkingSlotsByLocation(@PathVariable String location) {
+    //     return ResponseEntity.ok(parkingSlotService.getParkingSlotsByLocation(location));
+    // }
+    
+    // With this one
+    @GetMapping("/location/{locationId}")
+    public ResponseEntity<List<ParkingSlot>> getParkingSlotsByLocation(@PathVariable Long locationId) {
+        return ResponseEntity.ok(parkingSlotService.getParkingSlotsByLocationId(locationId));
     }
+    
     
     @GetMapping("/{id}")
     public ResponseEntity<ParkingSlot> getParkingSlotById(@PathVariable Long id) {

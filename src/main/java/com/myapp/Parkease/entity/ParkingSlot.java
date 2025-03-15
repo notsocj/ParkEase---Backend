@@ -11,8 +11,14 @@ public class ParkingSlot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false)
-    private String location;
+    // Remove the location String field
+    // @Column(nullable = false)
+    // private String location;
+    
+    // Add ManyToOne relationship to Location
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
     
     @Column(name = "slot_number", nullable = false)
     private Integer slotNumber;

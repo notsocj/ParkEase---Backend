@@ -26,8 +26,14 @@ public class ParkingSlotService {
         return parkingSlotRepository.findByStatus("available");
     }
     
-    public List<ParkingSlot> getParkingSlotsByLocation(String location) {
-        return parkingSlotRepository.findByLocation(location);
+    // Replace this method
+    // public List<ParkingSlot> getParkingSlotsByLocation(String location) {
+    //    return parkingSlotRepository.findByLocation(location);
+    // }
+    
+    // With this method for location objects
+    public List<ParkingSlot> getParkingSlotsByLocationId(Long locationId) {
+        return parkingSlotRepository.findByLocationId(locationId);
     }
     
     public Optional<ParkingSlot> getParkingSlotById(Long id) {
