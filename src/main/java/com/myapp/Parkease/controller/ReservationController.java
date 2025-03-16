@@ -70,4 +70,17 @@ public class ReservationController {
             return ResponseEntity.notFound().build();
         }
     }
+
+        @GetMapping("/user/{userId}/history")
+    public ResponseEntity<List<Reservation>> getReservationHistoryByUser(@PathVariable Long userId) {
+        Optional<User> user = userService.getUserById(userId);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(reservationService.getReservationHistoryByUser(user.get()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
 }

@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findByUserAndStatus(User user, String status);
+    List<Reservation> findByUserAndStatusIn(User user, List<String> statuses);
 }

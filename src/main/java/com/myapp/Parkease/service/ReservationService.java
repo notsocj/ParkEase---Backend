@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,10 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
     
+    public List<Reservation> getReservationHistoryByUser(User user) {
+    return reservationRepository.findByUserAndStatusIn(user, Arrays.asList("completed", "cancelled"));
+    }
+
     public Optional<Reservation> getReservationById(Long id) {
         return reservationRepository.findById(id);
     }
