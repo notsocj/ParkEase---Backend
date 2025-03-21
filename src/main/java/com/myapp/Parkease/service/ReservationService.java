@@ -81,4 +81,42 @@ public class ReservationService {
         }
         return null;
     }
+        @Transactional
+    public boolean markExpiredReservationsByUser(Long userId, LocalDateTime currentTime) {
+        Optional<User> userOptional = userService.getUserById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            List<Reservation> activeReservations = reservationRepository.findByUserAndStatus(user, "active");
+            
+            for (Reservation reservation : activeReservations) {
+                if (reservation.getEndTime().isBefore(currentTime)) {
+                    reservation.setStatus("completed");
+                    reservationRepository.save(reservation);
+                    
+                    // Update the parking slot status back to "available"
+                    ParkingSlot slot = reservation.getParkingSlot();
+                    parkingSlotService.updateParkingSlotStatus(slot.getId(), "available");
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean markAllExpiredReservations(LocalDateTime currentTime) {
+        List<Reservation> activeReservations = reservationRepository.findByStatus("active");
+        
+        for (Reservation reservation : activeReservations) {
+            if (reservation.getEndTime().isBefore(currentTime)) {
+                reservation.setStatus("completed");
+                reservationRepository.save(reservation);
+                
+                // Update the parking slot status back to "available"
+                ParkingSlot slot = reservation.getParkingSlot();
+                parkingSlotService.updateParkingSlotStatus(slot.getId(), "available");
+            }
+        }
+        return true;
+    }
 }

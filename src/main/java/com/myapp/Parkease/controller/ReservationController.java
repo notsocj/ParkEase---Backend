@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,5 +83,23 @@ public class ReservationController {
     }
 
 
+        @PostMapping("/expire")
+    public ResponseEntity<Boolean> markExpiredReservations(
+            @RequestParam(required = false) Long userId, 
+            @RequestParam String currentTime) {
+        
+        LocalDateTime currentDateTime = LocalDateTime.parse(currentTime);
+        boolean result;
+        
+        if (userId != null) {
+            // Mark expired reservations for a specific user
+            result = reservationService.markExpiredReservationsByUser(userId, currentDateTime);
+        } else {
+            // Mark all expired reservations in the system
+            result = reservationService.markAllExpiredReservations(currentDateTime);
+        }
+        
+        return ResponseEntity.ok(result);
+    }
 
 }
