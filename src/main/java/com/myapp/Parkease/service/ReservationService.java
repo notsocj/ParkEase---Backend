@@ -17,11 +17,15 @@ import java.util.Optional;
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final ParkingSlotService parkingSlotService;
+    private final UserService userService;
+
     
     @Autowired
-    public ReservationService(ReservationRepository reservationRepository, ParkingSlotService parkingSlotService) {
+    public ReservationService(ReservationRepository reservationRepository, ParkingSlotService parkingSlotService, UserService userService) {
         this.reservationRepository = reservationRepository;
         this.parkingSlotService = parkingSlotService;
+        this.userService = userService;
+
     }
     
     public List<Reservation> getAllReservations() {
@@ -119,4 +123,5 @@ public class ReservationService {
         }
         return true;
     }
+
 }
